@@ -4,14 +4,14 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 mongoose.connect(process.env.MONGO).then(()=> {
-    console.log("Databse c onnection is Successful");
+    console.log("Databse connection is Successful");
 }).catch((err)=> {
     console.log(err);
 });
 
 const app = express();
 
-app.listen(3000,() => {
+app.listen(3000,() => { 
     console.log("App is listening on 3030!");
     }
 );
