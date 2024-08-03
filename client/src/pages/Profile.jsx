@@ -16,6 +16,8 @@ export default function Profile() {
   const [fileUploadError, setFileUploadError] = useState(false);
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const [formData, setFormData] = useState({});
+  const [showListingsError, setShowListingsError] = useState(false);
+  const [userListings, setUserListings] = useState([]);
   const dispatch = useDispatch();
 
   //firebase rules amended
@@ -110,7 +112,22 @@ export default function Profile() {
     } catch (error) {
       dispatch(signOutUserFailure(error.message))
     }
-  }
+  };
+
+  const handleShowLstings = async(req,res,next) => {
+    try {
+      setShowListingsError(false);
+      const res = await fetch(`/api/user/listings/${currentUser._id}`);
+      const data = await res.json();
+      if(data.success === false){
+        setShowListingsError(true);
+        return;
+      }
+      setUserListings(data);
+    } catch (error) {
+      setShowListingsError(true);
+    }
+  };
 
   return (
     <div className='p-3 max-w-lg mx-auto'>
@@ -143,6 +160,30 @@ export default function Profile() {
       </div>
       <p className='text-red-700 mt-5'>{error ? error : ''}</p>
       <p className='text-green-700 mt-5'>{updateSuccess ? 'User updated successfully' : ''}</p>
+      <button onClick={handleShowLstings} className='text-green-700 w-full'>Show listings</button>
+      <p className='text-red-700 text-sm mt-5'>{showListingsError ? 'Error showing the listings' : ''}</p>
+      {userListings && userListings.length>0 &&
+       userListings.map((listing) => <div key={listing._id}
+       className='border rounded-lg flex justify-between items-center p-3'>
+          <Link to={`/listing/${listing._id}`}>
+            <img src={listing.imageUrls[0]} alt="" 
+            className='h-16 w-16'/>          
+          </Link>
+          <Link className='flex-1  text-slate-700 font-semibold  hover:underline truncate' to={`/listing/${listing._id}`}>
+            <p >{listing.name}</p>
+          </Link>
+          <div className='flex flex-col items-center'>
+          <div className='text-red-700 uppercase border p-3'>
+            Delete
+          </div>
+
+          <div className='text-green-700 uppercase border p-3'>
+            Edit
+          </div>
+          </div>
+          
+
+       </div>)}
     </div>
   );
 }
