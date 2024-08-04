@@ -162,28 +162,30 @@ export default function Profile() {
       <p className='text-green-700 mt-5'>{updateSuccess ? 'User updated successfully' : ''}</p>
       <button onClick={handleShowLstings} className='text-green-700 w-full'>Show listings</button>
       <p className='text-red-700 text-sm mt-5'>{showListingsError ? 'Error showing the listings' : ''}</p>
-      {userListings && userListings.length>0 &&
-       userListings.map((listing) => <div key={listing._id}
-       className='border rounded-lg flex justify-between items-center p-3'>
-          <Link to={`/listing/${listing._id}`}>
-            <img src={listing.imageUrls[0]} alt="" 
-            className='h-16 w-16'/>          
-          </Link>
-          <Link className='flex-1  text-slate-700 font-semibold  hover:underline truncate' to={`/listing/${listing._id}`}>
-            <p >{listing.name}</p>
-          </Link>
-          <div className='flex flex-col items-center'>
-          <div className='text-red-700 uppercase border p-3'>
+      {userListings && userListings.length > 0 && (
+  <div className='flex flex-col gap-4'>
+    <h1 className='text-center mt-7 text-2xl font-semibold'>Your listings</h1>
+    {userListings.map((listing) => (
+      <div key={listing._id} className="border rounded-lg flex justify-between items-center p-3">
+        <Link to={`/listing/${listing._id}`}>
+          <img src={listing.imageUrls[0]} alt="" className="h-16 w-16" />
+        </Link>
+        <Link className="flex-1 text-slate-700 font-semibold hover:underline truncate" to={`/listing/${listing._id}`}>
+          <p>{listing.name}</p>
+        </Link>
+        <div className="flex flex-col items-center">
+          <div className="text-red-700 uppercase border p-3">
             Delete
           </div>
-
-          <div className='text-green-700 uppercase border p-3'>
+          <div className="text-green-700 uppercase border p-3">
             Edit
           </div>
-          </div>
-          
+        </div>
+      </div>
+    ))}
+  </div>
+)}
 
-       </div>)}
     </div>
   );
 }
