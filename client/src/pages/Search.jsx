@@ -6,7 +6,7 @@ export default function Search() {
       <div className='p-7 border-b-2 md:border-r-2 md:min-h-screen'>
         <form action="" className='flex flex-col gap-8'>
             <div className='flex items-center gap-2'>
-                <label className='whitespace-nowrap'>Search Term:</label>
+                <label className='whitespace-nowrap font-semibold'>Search Term:</label>
                 <input type="text"
                 id='search'
                 placeholder='Search...'
@@ -14,7 +14,7 @@ export default function Search() {
             </div>
 
             <div className='flex gap-2 flex-wrap items-center'>
-                <label>Type:</label>
+                <label className='font-semibold'>Type:</label>
                 <div className='flex gap-2'>
                     <input type="checkbox" id="all" className='w-5'/>
                     <span>Rent & Sale</span>
@@ -38,7 +38,7 @@ export default function Search() {
             </div>
 
             <div className='flex gap-2 flex-wrap items-center'>
-                <label>Amenities:</label>
+                <label className='font-semibold'>Amenities:</label>
                 <div className='flex gap-2'>
                     <input type="checkbox" id="parking" className='w-5'/>
                     <span>Parking</span>
@@ -51,7 +51,7 @@ export default function Search() {
             </div>
 
             <div className='flex items-center gap-2'> 
-                <label> Sort:</label>
+                <label className='font-semibold'> Sort:</label>
                 <select id="sort_order"
                 className='border rounded-lg p-3'>
                     <option >Price high to low</option>
